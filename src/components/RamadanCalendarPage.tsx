@@ -7,6 +7,7 @@ import {
   fetchRamadanCalendarForGregorianYear,
   type RamadanDayItem,
 } from '../services/aladhan';
+import ramadanCrescentSky from '../assets/images/ramadan_crescent_sky_1795721911260.jpg';
 
 interface RamadanCalendarPageProps {
   district: DistrictInfo;
@@ -124,9 +125,8 @@ export const RamadanCalendarPage: React.FC<RamadanCalendarPageProps> = ({
 
           <div className="lg:col-span-4 relative min-h-[180px] bg-slate-900">
             <img
-              src="/src/assets/images/ramadan_crescent_sky_1795721911260.jpg"
+              src={ramadanCrescentSky}
               alt="রমজানের সন্ধ্যা আকাশে বাঁকা চাঁদ ও মসজিদ"
-              referrerPolicy="no-referrer"
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex items-end p-5">

@@ -25,6 +25,7 @@ import {
 } from '../lib/bengali';
 import { getCurrentAndNextWaqt, type PrayerTimingsData } from '../services/aladhan';
 import type { LastReadState } from '../lib/firebase';
+import heroMasjidDawn from '../assets/images/hero_masjid_dawn_1795721910992.jpg';
 
 export type AppTab =
   | 'dashboard'
@@ -269,9 +270,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
           {/* Right Mosque Visual with Measured Scrim */}
           <div className="lg:col-span-5 relative min-h-[220px] lg:min-h-full bg-emerald-950">
             <img
-              src="/src/assets/images/hero_masjid_dawn_1795721910992.jpg"
+              src={heroMasjidDawn}
               alt="ভোরের আলোয় শান্ত মসজিদের আঙিনা"
-              referrerPolicy="no-referrer"
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col justify-end p-6">

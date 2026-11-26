@@ -20,6 +20,7 @@ import {
   type QuranAyah,
 } from '../services/quranApi';
 import type { BookmarkItem, LastReadState } from '../lib/firebase';
+import quranManuscriptArt from '../assets/images/quran_manuscript_art_1795721911542.jpg';
 
 interface QuranPageProps {
   selectedSurah: number;
@@ -213,9 +214,8 @@ export const QuranPage: React.FC<QuranPageProps> = ({
 
           <div className="lg:col-span-4 relative min-h-[160px] bg-slate-900">
             <img
-              src="/src/assets/images/quran_manuscript_art_1795721911542.jpg"
+              src={quranManuscriptArt}
               alt="পবিত্র কোরআনের উসমানি পাণ্ডুলিপি"
-              referrerPolicy="no-referrer"
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent flex items-end p-5">
