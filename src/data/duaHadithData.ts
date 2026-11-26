@@ -1,0 +1,367 @@
+export interface DuaItem {
+  id: string;
+  category: 'সকাল-সন্ধ্যা' | 'নামাজ' | 'ঘুম ও জাগরণ' | 'বিপদ ও তাওবা' | 'সফর ও দৈনন্দিন';
+  titleBn: string;
+  arabic: string;
+  pronunciationBn: string;
+  meaningBn: string;
+  reference: string;
+  repeatCount?: number;
+}
+
+export interface AllahNameItem {
+  number: number;
+  arabic: string;
+  transliterationBn: string;
+  meaningBn: string;
+}
+
+export interface HadithItem {
+  id: string;
+  book: 'সহিহ বুখারি' | 'সহিহ মুসলিম';
+  category: 'ঈমান ও নিয়ত' | 'নামাজ ও পবিত্রতা' | 'চরিত্র ও আখলাক' | 'দোয়া ও যিকির' | 'দান ও রোজা';
+  hadithNumber: string;
+  arabic: string;
+  textBn: string;
+  narratorBn: string;
+}
+
+export interface DailyAyahItem {
+  surahNameBn: string;
+  ayahRef: string;
+  arabic: string;
+  meaningBn: string;
+}
+
+export const DAILY_AYAHS: DailyAyahItem[] = [
+  {
+    surahNameBn: 'সূরা আল-বাকারা',
+    ayahRef: 'আয়াত ২৮৬',
+    arabic: 'لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا',
+    meaningBn: 'আল্লাহ কোনো ব্যক্তির ওপর তার সাধ্যের অতিরিক্ত দায়িত্ব অর্পণ করেন না।',
+  },
+  {
+    surahNameBn: 'সূরা আল-ইনশিরাহ',
+    ayahRef: 'আয়াত ৫-৬',
+    arabic: 'فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ۝ إِنَّ مَعَ الْعُسْرِ يُسْرًا',
+    meaningBn: 'নিশ্চয়ই কষ্টের সাথেই স্বস্তি রয়েছে। অবশ্যই কষ্টের সাথেই স্বস্তি রয়েছে।',
+  },
+  {
+    surahNameBn: 'সূরা আর-রাদ',
+    ayahRef: 'আয়াত ২৮',
+    arabic: 'أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ',
+    meaningBn: 'জেনে রেখো, আল্লাহর যিকিরেই অন্তরসমূহ প্রশান্ত হয়।',
+  },
+  {
+    surahNameBn: 'সূরা আল-বাকারা',
+    ayahRef: 'আয়াত ১৫২',
+    arabic: 'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ',
+    meaningBn: 'অতএব তোমরা আমাকে স্মরণ করো, আমিও তোমাদের স্মরণ করব। আর আমার কৃতজ্ঞতা প্রকাশ করো এবং অকৃতজ্ঞ হয়ো না।',
+  },
+  {
+    surahNameBn: 'সূরা আয-যুমার',
+    ayahRef: 'আয়াত ৫৩',
+    arabic: 'لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ ۚ إِنَّ اللَّهَ يَغْفِرُ الذُّنُوبَ جَمِيعًا',
+    meaningBn: 'আল্লাহর রহমত থেকে নিরাশ হয়ো না। নিশ্চয়ই আল্লাহ সকল গুনাহ ক্ষমা করে দেন।',
+  },
+];
+
+export const HISNUL_MUSLIM_DUAS: DuaItem[] = [
+  {
+    id: 'morning-1',
+    category: 'সকাল-সন্ধ্যা',
+    titleBn: 'সকালের যিকির (আসবাহনা ওয়া আসবাহাল মুলকু লিল্লাহ)',
+    arabic: 'أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ',
+    pronunciationBn: 'আসবাহনা ওয়া আসবাহাল মুলকু লিল্লা-হ, ওয়ালহামদু লিল্লা-হ, লা ইলাহা ইল্লাল্লা-হু ওয়াহদাহু লা শারীকা লাহু, লাহুল মুলকু ওয়া লাহুল হামদু ওয়া হুয়া আলা কুল্লি শাইয়িন ক্বাদীর।',
+    meaningBn: 'আমরা এবং সমগ্র রাজত্ব আল্লাহর জন্যই সকালে উপনীত হয়েছি। সকল প্রশংসা আল্লাহর। এক আল্লাহ ব্যতীত কোনো সত্য ইলাহ নেই, তাঁর কোনো শরীক নেই। রাজত্ব ও প্রশংসা তাঁরই এবং তিনি সর্ববিষয়ে সর্বশক্তিমান।',
+    reference: 'সহিহ মুসলিম, হাদিস: ২৭২৩; হিসনুল মুসলিম',
+    repeatCount: 1,
+  },
+  {
+    id: 'evening-1',
+    category: 'সকাল-সন্ধ্যা',
+    titleBn: 'সন্ধ্যার যিকির (আমসাইনা ওয়া আমসাল মুলকু লিল্লাহ)',
+    arabic: 'أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ',
+    pronunciationBn: 'আমসাইনা ওয়া আমসাল মুলকু লিল্লা-হ, ওয়ালহামদু লিল্লা-হ, লা ইলাহা ইল্লাল্লা-হু ওয়াহদাহু লা শারীকা লাহু।',
+    meaningBn: 'আমরা এবং সমগ্র রাজত্ব আল্লাহর জন্যই সন্ধ্যায় উপনীত হয়েছি। সকল প্রশংসা আল্লাহর জন্য। এক আল্লাহ ছাড়া কোনো মাবুদ নেই।',
+    reference: 'সহিহ মুসলিম, হাদিস: ২৭২৩; হিসনুল মুসলিম',
+    repeatCount: 1,
+  },
+  {
+    id: 'morning-evening-2',
+    category: 'সকাল-সন্ধ্যা',
+    titleBn: 'বিপদ ও ক্ষতি থেকে রক্ষার দোয়া (সকাল ও সন্ধ্যায় ৩ বার)',
+    arabic: 'بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ',
+    pronunciationBn: 'বিসমিল্লা-হিল্লাযী লা ইয়াদুররু মাআসমিহি শাইউন ফিল আরদি ওয়া লা ফিস সামা-ই ওয়া হুয়াস সামীউল আলীম।',
+    meaningBn: 'আল্লাহর নামে শুরু করছি, যাঁর নামের বরকতে আসমান ও জমিনের কোনো কিছুই ক্ষতি করতে পারে না। তিনি সর্বশ্রোতা ও সর্বজ্ঞ।',
+    reference: 'সুনান আবু দাউদ: ৫০৮৮; তিরমিযি: ৩৩৮৮',
+    repeatCount: 3,
+  },
+  {
+    id: 'tawbah-1',
+    category: 'বিপদ ও তাওবা',
+    titleBn: 'সায়্যিদুল ইস্তিগফার (ক্ষমা চাওয়ার শ্রেষ্ঠ দোয়া)',
+    arabic: 'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ',
+    pronunciationBn: 'আল্লা-হুম্মা আনতা রাব্বী লা ইলা-হা ইল্লা আনতা, খালাক্বতানী ওয়া আনা আবদুকা, ওয়া আনা আলা আহদিকা ওয়া ওয়াদিকা মাসতাত্বাতু, আউযু বিকা মিন শাররি মা সানাতু, আবূউ লাকা বিনিমাতিকা আলাইয়্যা, ওয়া আবূউ বিযাম্বী ফাগফিরলী, ফাইন্নাহু লা ইয়াগফিরুয যুনূবা ইল্লা আনতা।',
+    meaningBn: 'হে আল্লাহ! আপনি আমার রব, আপনি ছাড়া কোনো সত্য মাবুদ নেই। আপনি আমাকে সৃষ্টি করেছেন এবং আমি আপনার বান্দা। আমি সাধ্যমতো আপনার প্রতিশ্রুতি ও অঙ্গীকারের ওপর অটল আছি। আমার কৃতকর্মের অনিষ্ট থেকে আপনার আশ্রয় চাই। আমার ওপর আপনার নেয়ামত ও আমার গুনাহসমূহ স্বীকার করছি। অতএব আমাকে ক্ষমা করুন; নিশ্চয় আপনি ছাড়া গুনাহ ক্ষমা করার কেউ নেই।',
+    reference: 'সহিহ বুখারি, হাদিস: ৬৩০৬',
+  },
+  {
+    id: 'namaz-1',
+    category: 'নামাজ',
+    titleBn: 'নামাজের পর আয়াতুল কুরসি ও মাসনুন দোয়া (আল্লাহুম্মা আইন্নি)',
+    arabic: 'اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ، وَشُكْرِكَ، وَحُسْنِ عِبَادَتِكَ',
+    pronunciationBn: 'আল্লা-হুম্মা আইন্নী আলা যিকরিকা, ওয়া শুকরিকা, ওয়া হুসনি ইবাদাতিকা।',
+    meaningBn: 'হে আল্লাহ! আপনার যিকির করতে, আপনার শুকরিয়া আদায় করতে এবং সুন্দরভাবে আপনার ইবাদত করতে আমাকে সাহায্য করুন।',
+    reference: 'সুনান আবু দাউদ, হাদিস: ১৫২২',
+  },
+  {
+    id: 'namaz-2',
+    category: 'নামাজ',
+    titleBn: 'দুই সিজদার মাঝখানে পড়ার দোয়া',
+    arabic: 'رَبِّ اغْفِرْ لِي، رَبِّ اغْفِرْ لِي',
+    pronunciationBn: 'রাব্বিগফির লী, রাব্বিগফির লী।',
+    meaningBn: 'হে আমার রব! আমাকে ক্ষমা করুন, হে আমার রব! আমাকে ক্ষমা করুন।',
+    reference: 'সুনান আবু দাউদ: ৮৭৪; ইবনে মাজাহ: ৮৯৭',
+  },
+  {
+    id: 'sleep-1',
+    category: 'ঘুম ও জাগরণ',
+    titleBn: 'ঘুমানোর আগে পড়ার দোয়া',
+    arabic: 'بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا',
+    pronunciationBn: 'বিসমিকা আল্লা-হুম্মা আমূতু ওয়া আহইয়া।',
+    meaningBn: 'হে আল্লাহ! আপনার নামেই আমি মৃত্যুবরণ করি (ঘুমাই) এবং আপনার নামেই জীবিত হই (জাগ্রত হই)।',
+    reference: 'সহিহ বুখারি, হাদিস: ৬৩২৪',
+  },
+  {
+    id: 'sleep-2',
+    category: 'ঘুম ও জাগরণ',
+    titleBn: 'ঘুম থেকে জাগ্রত হওয়ার দোয়া',
+    arabic: 'الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ',
+    pronunciationBn: 'আলহামদু লিল্লা-হিল্লাযী আহইয়ানা বাদা মা আমাতানা ওয়া ইলাইহিন নুশূর।',
+    meaningBn: 'সকল প্রশংসা আল্লাহর জন্য, যিনি আমাদের মৃত্যুর (ঘুমের) পর পুনরায় জীবন দান করেছেন এবং তাঁরই দিকে আমাদের পুনরুত্থান।',
+    reference: 'সহিহ বুখারি, হাদিস: ৬৩১২',
+  },
+  {
+    id: 'daily-1',
+    category: 'সফর ও দৈনন্দিন',
+    titleBn: 'ঘর থেকে বের হওয়ার দোয়া',
+    arabic: 'بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ',
+    pronunciationBn: 'বিসমিল্লা-হ, তাওয়াক্কালতু আলাল্লা-হ, ওয়া লা হাওলা ওয়া লা কুওয়াতা ইল্লা বিল্লা-হ।',
+    meaningBn: 'আল্লাহর নামে বের হচ্ছি, আল্লাহর ওপরই ভরসা করলাম। আল্লাহর সাহায্য ছাড়া কোনো শক্তি ও সামর্থ্য নেই।',
+    reference: 'সুনান আবু দাউদ: ৫০৯৫; তিরমিযি: ৩৪২৬',
+  },
+  {
+    id: 'daily-2',
+    category: 'সফর ও দৈনন্দিন',
+    titleBn: 'দুশ্চিন্তা ও ঋণমুক্তির দোয়া',
+    arabic: 'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ، وَضَلَعِ الدَّيْنِ، وَغَلَبَةِ الرِّجَالِ',
+    pronunciationBn: 'আল্লা-হুম্মা ইন্নী আউযু বিকা মিনাল হাম্মি ওয়াল হাযান, ওয়াল আজযি ওয়াল কাসাল, ওয়াল বুখলি ওয়াল জুবন, ওয়া দালায়িদ দাইনি ওয়া গালাবাতির রিজাল।',
+    meaningBn: 'হে আল্লাহ! আমি আপনার কাছে আশ্রয় চাই দুশ্চিন্তা, দুঃখ, অক্ষমতা, অলসতা, কৃপণতা, ভীরুতা, ঋণের বোঝা ও মানুষের জবরদস্তি থেকে।',
+    reference: 'সহিহ বুখারি, হাদিস: ৬৩৬৯',
+  },
+  {
+    id: 'tawbah-2',
+    category: 'বিপদ ও তাওবা',
+    titleBn: 'দোয়া ইউনুস (বিপদ ও সংকট মুক্তির দোয়া)',
+    arabic: 'لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ',
+    pronunciationBn: 'লা ইলা-হা ইল্লা আনতা সুবহা-নাকা ইন্নী কুনতু মিনায যোয়ালিমীন।',
+    meaningBn: 'আপনি ছাড়া কোনো সত্য ইলাহ নেই, আপনি পবিত্র ও মহান। নিশ্চয়ই আমি অন্যায়কারীদের অন্তর্ভুক্ত ছিলাম।',
+    reference: 'সূরা আল-আম্বিয়া (২১:৮৭); তিরমিযি: ৩৫০৫',
+  },
+];
+
+export const ALLAH_99_NAMES: AllahNameItem[] = [
+  { number: 1, arabic: 'الرَّحْمَنُ', transliterationBn: 'আর-রাহমান', meaningBn: 'পরম করুণাময়' },
+  { number: 2, arabic: 'الرَّحِيمُ', transliterationBn: 'আর-রাহীম', meaningBn: 'অতিশয় দয়ালু' },
+  { number: 3, arabic: 'الْمَلِكُ', transliterationBn: 'আল-মালিক', meaningBn: 'সর্বময় অধিপতি' },
+  { number: 4, arabic: 'الْقُدُّوسُ', transliterationBn: 'আল-কুদ্দুস', meaningBn: 'অতি পবিত্র' },
+  { number: 5, arabic: 'السَّلَامُ', transliterationBn: 'আস-সালাম', meaningBn: 'শান্তি ও নিরাপত্তার উৎস' },
+  { number: 6, arabic: 'الْمُؤْمِنُ', transliterationBn: 'আল-মুমিন', meaningBn: 'নিরাপত্তা ও ঈমান দানকারী' },
+  { number: 7, arabic: 'الْمُهَيْمِنُ', transliterationBn: 'আল-মুহাইমিন', meaningBn: 'রক্ষণাবেক্ষণকারী ও তত্ত্বাবধায়ক' },
+  { number: 8, arabic: 'الْعَزِيزُ', transliterationBn: 'আল-আযীয', meaningBn: 'মহাপরাক্রমশালী' },
+  { number: 9, arabic: 'الْجَبَّارُ', transliterationBn: 'আল-জাব্বার', meaningBn: 'মহাপ্রতাপশালী ও সংশোধনকারী' },
+  { number: 10, arabic: 'الْمُتَكَبِّرُ', transliterationBn: 'আল-মুতাকাব্বির', meaningBn: 'সর্বশ্রেষ্ঠ ও গৌরবান্বিত' },
+  { number: 11, arabic: 'الْخَالِقُ', transliterationBn: 'আল-খালিক', meaningBn: 'সৃষ্টিকর্তা' },
+  { number: 12, arabic: 'الْبَارِئُ', transliterationBn: 'আল-বারী', meaningBn: 'শূন্য থেকে সৃষ্টিকারী' },
+  { number: 13, arabic: 'الْمُصَوِّرُ', transliterationBn: 'আল-মুসাওউইর', meaningBn: 'আকৃতি দানকারী' },
+  { number: 14, arabic: 'الْغَفَّارُ', transliterationBn: 'আল-গাফফার', meaningBn: 'পরম ক্ষমাশীল' },
+  { number: 15, arabic: 'الْقَهَّارُ', transliterationBn: 'আল-কাহহার', meaningBn: 'সর্বজয়ী ও পরাক্রান্ত' },
+  { number: 16, arabic: 'الْوَهَّابُ', transliterationBn: 'আল-ওয়াহহাব', meaningBn: 'অকৃপণ দানশীল' },
+  { number: 17, arabic: 'الرَّزَّاقُ', transliterationBn: 'আর-রাযযাক', meaningBn: 'সর্বজীবের রিযিকদাতা' },
+  { number: 18, arabic: 'الْفَتَّاحُ', transliterationBn: 'আল-ফাত্তাহ', meaningBn: 'রহমতের দ্বার উন্মুক্তকারী' },
+  { number: 19, arabic: 'اَلْعَلِيْمُ', transliterationBn: 'আল-আলীম', meaningBn: 'সর্বজ্ঞ' },
+  { number: 20, arabic: 'الْقَابِضُ', transliterationBn: 'আল-ক্বাবিদ', meaningBn: 'সংকোচনকারী' },
+  { number: 21, arabic: 'الْبَاسِطُ', transliterationBn: 'আল-বাসিত', meaningBn: 'প্রশস্তকারী' },
+  { number: 22, arabic: 'الْخَافِضُ', transliterationBn: 'আল-খাফিদ', meaningBn: 'অবনতকারী' },
+  { number: 23, arabic: 'الرَّافِعُ', transliterationBn: 'আর-রাফি', meaningBn: 'উন্নতকারী' },
+  { number: 24, arabic: 'الْمُعِزُّ', transliterationBn: 'আল-মুইযয', meaningBn: 'সম্মান দানকারী' },
+  { number: 25, arabic: 'المُذِلُّ', transliterationBn: 'আল-মুযিল্ল', meaningBn: 'অপমানিতকারী' },
+  { number: 26, arabic: 'السَّمِيعُ', transliterationBn: 'আস-সামী', meaningBn: 'সর্বশ্রোতা' },
+  { number: 27, arabic: 'الْبَصِيرُ', transliterationBn: 'আল-বাসীর', meaningBn: 'সর্বদ্রষ্টা' },
+  { number: 28, arabic: 'الْحَكَمُ', transliterationBn: 'আল-হাকাম', meaningBn: 'চূড়ান্ত বিচারক' },
+  { number: 29, arabic: 'الْعَدْلُ', transliterationBn: 'আল-আদল', meaningBn: 'ন্যায়বিচারক' },
+  { number: 30, arabic: 'اللَّطِيفُ', transliterationBn: 'আল-লাতীফ', meaningBn: 'সূক্ষ্মদর্শী ও পরম স্নেহশীল' },
+  { number: 31, arabic: 'الْخَبِيرُ', transliterationBn: 'আল-খাবীর', meaningBn: 'সর্বজ্ঞাত' },
+  { number: 32, arabic: 'الْحَلِيمُ', transliterationBn: 'আল-হালীম', meaningBn: 'অতি সহনশীল' },
+  { number: 33, arabic: 'الْعَظِيمُ', transliterationBn: 'আল-আযীম', meaningBn: 'মহান ও সর্বশ্রেষ্ঠ' },
+  { number: 34, arabic: 'الْغَفُورُ', transliterationBn: 'আল-গাফূর', meaningBn: 'অত্যন্ত ক্ষমাশীল' },
+  { number: 35, arabic: 'الشَّكُورُ', transliterationBn: 'আশ-শাকূর', meaningBn: 'গুণগ্রাহী ও প্রতিদানদাতা' },
+  { number: 36, arabic: 'الْعَلِيُّ', transliterationBn: 'আল-আলী', meaningBn: 'সর্বোচ্চ' },
+  { number: 37, arabic: 'الْكَبِيرُ', transliterationBn: 'আল-কাবীর', meaningBn: 'সুমহান' },
+  { number: 38, arabic: 'الْحَفِيظُ', transliterationBn: 'আল-হাফীয', meaningBn: 'সংরক্ষণকারী' },
+  { number: 39, arabic: 'المُقيِت', transliterationBn: 'আল-মুকীত', meaningBn: 'আহার্য ও শক্তিদাতা' },
+  { number: 40, arabic: 'الْحسِيبُ', transliterationBn: 'আল-হাসীব', meaningBn: 'হিসাব গ্রহণকারী' },
+  { number: 41, arabic: 'الْجَلِيلُ', transliterationBn: 'আল-জালীল', meaningBn: 'মর্যাদাবান ও মহিমান্বিত' },
+  { number: 42, arabic: 'الْكَرِيمُ', transliterationBn: 'আল-কারীম', meaningBn: 'মহা সম্মানিত ও দানশীল' },
+  { number: 43, arabic: 'الرَّقِيبُ', transliterationBn: 'আর-রাকীব', meaningBn: 'সতর্ক পর্যবেক্ষক' },
+  { number: 44, arabic: 'الْمُجِيبُ', transliterationBn: 'আল-মুজীব', meaningBn: 'দোয়া কবুলকারী' },
+  { number: 45, arabic: 'الْوَاسِعُ', transliterationBn: 'আল-ওয়াসি', meaningBn: 'সর্বব্যাপী ও অসীম' },
+  { number: 46, arabic: 'الْحَكِيمُ', transliterationBn: 'আল-হাকীম', meaningBn: 'মহাপ্রজ্ঞাময়' },
+  { number: 47, arabic: 'الْوَدُودُ', transliterationBn: 'আল-ওয়াদূদ', meaningBn: 'পরম স্নেহময়' },
+  { number: 48, arabic: 'الْمَجِيدُ', transliterationBn: 'আল-মাজীদ', meaningBn: 'মহিমান্বিত' },
+  { number: 49, arabic: 'الْبَاعِثُ', transliterationBn: 'আল-বায়িস', meaningBn: 'পুনরুত্থানকারী' },
+  { number: 50, arabic: 'الشَّهِيدُ', transliterationBn: 'আশ-শাহীদ', meaningBn: 'সর্বসাক্ষী' },
+  { number: 51, arabic: 'الْحَقُّ', transliterationBn: 'আল-হাক্ক', meaningBn: 'চিরন্তন সত্য' },
+  { number: 52, arabic: 'الْوَكِيلُ', transliterationBn: 'আল-ওয়াকীল', meaningBn: 'কর্মবিধায়ক ও অভিভাবক' },
+  { number: 53, arabic: 'الْقَوِيُّ', transliterationBn: 'আল-ক্বাউইয়্যু', meaningBn: 'সর্বশক্তিমান' },
+  { number: 54, arabic: 'الْمَتِينُ', transliterationBn: 'আল-মাতীন', meaningBn: 'সুদৃঢ় ও অটল' },
+  { number: 55, arabic: 'الْوَلِيُّ', transliterationBn: 'আল-ওয়ালী', meaningBn: 'বন্ধু ও সাহায্যকারী' },
+  { number: 56, arabic: 'الْحَمِيدُ', transliterationBn: 'আল-হামীদ', meaningBn: 'সকল প্রশংসার যোগ্য' },
+  { number: 57, arabic: 'الْمُحْصِي', transliterationBn: 'আল-মুহসী', meaningBn: 'সকল কিছুর হিসাবকারী' },
+  { number: 58, arabic: 'الْمُبْدِئُ', transliterationBn: 'আল-মুবদী', meaningBn: 'আদি সৃষ্টিকারী' },
+  { number: 59, arabic: 'الْمُعِيدُ', transliterationBn: 'আল-মুঈদ', meaningBn: 'পুনরায় সৃষ্টিকারী' },
+  { number: 60, arabic: 'الْمُحْيِي', transliterationBn: 'আল-মুহয়ী', meaningBn: 'জীবনদাতা' },
+  { number: 61, arabic: 'اَلْمُمِيتُ', transliterationBn: 'আল-মুমীত', meaningBn: 'মৃত্যুদাতা' },
+  { number: 62, arabic: 'الْحَيُّ', transliterationBn: 'আল-হাইয়্যু', meaningBn: 'চিরঞ্জীব' },
+  { number: 63, arabic: 'الْقَيُّومُ', transliterationBn: 'আল-ক্বাইয়্যূম', meaningBn: 'চিরস্থায়ী ও স্বয়ংসম্পূর্ণ' },
+  { number: 64, arabic: 'الْوَاجِدُ', transliterationBn: 'আল-ওয়াজিদ', meaningBn: 'সর্বস্বত্বাধিকারী' },
+  { number: 65, arabic: 'الْمَاجِدُ', transliterationBn: 'আল-মাজিদ', meaningBn: 'মর্যাদা ও গৌরবের অধিকারী' },
+  { number: 66, arabic: 'الْواحِدُ', transliterationBn: 'আল-ওয়াহিদ', meaningBn: 'এক ও অদ্বিতীয়' },
+  { number: 67, arabic: 'اَلاَحَدُ', transliterationBn: 'আল-আহাদ', meaningBn: 'একক' },
+  { number: 68, arabic: 'الصَّمَدُ', transliterationBn: 'আস-সামাদ', meaningBn: 'অমুখাপেক্ষী' },
+  { number: 69, arabic: 'الْقَادِرُ', transliterationBn: 'আল-ক্বাদির', meaningBn: 'সর্বক্ষমতাময়' },
+  { number: 70, arabic: 'الْمُقْتَدِرُ', transliterationBn: 'আল-মুকতাদির', meaningBn: 'নিরঙ্কুশ ক্ষমতাবান' },
+  { number: 71, arabic: 'الْمُقَدِّمُ', transliterationBn: 'আল-মুকাদ্দিম', meaningBn: 'অগ্রসরকারী' },
+  { number: 72, arabic: 'الْمُؤَخِّرُ', transliterationBn: 'আল-মুআখখির', meaningBn: 'বিলম্বকারী' },
+  { number: 73, arabic: 'الأوَّلُ', transliterationBn: 'আল-আউয়াল', meaningBn: 'অনাদি (সবার প্রথম)' },
+  { number: 74, arabic: 'الآخِرُ', transliterationBn: 'আল-আখির', meaningBn: 'অনন্ত (সবার শেষ)' },
+  { number: 75, arabic: 'الظَّاهِرُ', transliterationBn: 'আয-যাহির', meaningBn: 'প্রকাশ্য' },
+  { number: 76, arabic: 'الْبَاطِنُ', transliterationBn: 'আল-বাতিন', meaningBn: 'অদৃশ্য ও গূঢ়' },
+  { number: 77, arabic: 'الْوَالِي', transliterationBn: 'আল-ওয়ালি', meaningBn: 'সর্বময় শাসক' },
+  { number: 78, arabic: 'الْمُتَعَالِي', transliterationBn: 'আল-মুতাআলি', meaningBn: 'সর্বোচ্চ মর্যাদাবান' },
+  { number: 79, arabic: 'الْبَرُّ', transliterationBn: 'আল-বাররু', meaningBn: 'পরম কল্যাণময় ও অনুগ্রহশীল' },
+  { number: 80, arabic: 'التَّوَابُ', transliterationBn: 'আত-তাওয়াব', meaningBn: 'তাওবা কবুলকারী' },
+  { number: 81, arabic: 'الْمُنْتَقِمُ', transliterationBn: 'আল-মুনতাকিম', meaningBn: 'প্রতিশোধ গ্রহণকারী' },
+  { number: 82, arabic: 'العَفُوُّ', transliterationBn: 'আল-আফুউ', meaningBn: 'অপরাধ মার্জনাকারী' },
+  { number: 83, arabic: 'الرَّؤُوفُ', transliterationBn: 'আর-রাঊফ', meaningBn: 'অতি স্নেহপরায়ণ' },
+  { number: 84, arabic: 'مَالِكُ الْمُلْكِ', transliterationBn: 'মালিকুল মুলক', meaningBn: 'সমগ্র জগতের অধিপতি' },
+  { number: 85, arabic: 'ذُوالْجَلَالِ وَالإكْرَامِ', transliterationBn: 'যুল-জালালি ওয়াল ইকরাম', meaningBn: 'মহিমা ও সম্মানের অধিকারী' },
+  { number: 86, arabic: 'الْمُقْسِطُ', transliterationBn: 'আল-মুকসিত', meaningBn: 'ন্যায়পরায়ণ' },
+  { number: 87, arabic: 'الْجَامِعُ', transliterationBn: 'আল-জামি', meaningBn: 'একত্রকারী' },
+  { number: 88, arabic: 'الْغَنِيُّ', transliterationBn: 'আল-গানী', meaningBn: 'অভাবমুক্ত ও ঐশ্বর্যময়' },
+  { number: 89, arabic: 'الْمُغْنِي', transliterationBn: 'আল-মুগনী', meaningBn: 'অভাবমোচনকারী' },
+  { number: 90, arabic: 'اَلْمَانِعُ', transliterationBn: 'আল-মানি', meaningBn: 'প্রতিরোধকারী' },
+  { number: 91, arabic: 'الضَّارَّ', transliterationBn: 'আদ-দারর', meaningBn: 'ক্ষতি পৌঁছাতে সক্ষম' },
+  { number: 92, arabic: 'النَّافِعُ', transliterationBn: 'আন-নাফি', meaningBn: 'কল্যাণ ও উপকারদাতা' },
+  { number: 93, arabic: 'النُّورُ', transliterationBn: 'আন-নূর', meaningBn: 'পরম জ্যোতি' },
+  { number: 94, arabic: 'الْهَادِي', transliterationBn: 'আল-হাদী', meaningBn: 'পথপ্রদর্শক' },
+  { number: 95, arabic: 'الْبَدِيعُ', transliterationBn: 'আল-বাদী', meaningBn: 'অতুলনীয় সৃষ্টিকর্তা' },
+  { number: 96, arabic: 'الْبَاقِي', transliterationBn: 'আল-বাকী', meaningBn: 'চিরস্থায়ী ও অবিনশ্বর' },
+  { number: 97, arabic: 'الْوَارِثُ', transliterationBn: 'আল-ওয়ারিস', meaningBn: 'সকল কিছুর উত্তরাধিকারী' },
+  { number: 98, arabic: 'الرَّشِيدُ', transliterationBn: 'আর-রাশীদ', meaningBn: 'সঠিক পথের দিশারী' },
+  { number: 99, arabic: 'الصَّبُورُ', transliterationBn: 'আস-সাবূর', meaningBn: 'পরম ধৈর্যশীল' },
+];
+
+export const SAHIH_HADITHS: HadithItem[] = [
+  {
+    id: 'bukhari-1',
+    book: 'সহিহ বুখারি',
+    category: 'ঈমান ও নিয়ত',
+    hadithNumber: 'হাদিস: ১',
+    arabic: 'إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى',
+    textBn: 'সকল আমল (কাজ) নিয়তের ওপর নির্ভরশীল। আর প্রত্যেক ব্যক্তি তাই পাবে, যা সে নিয়ত করবে।',
+    narratorBn: 'উমর ইবনুল খাত্তাব (রা.)',
+  },
+  {
+    id: 'muslim-1',
+    book: 'সহিহ মুসলিম',
+    category: 'নামাজ ও পবিত্রতা',
+    hadithNumber: 'হাদিস: ২২৩',
+    arabic: 'الطُّهُورُ شَطْرُ الْإِيمَانِ',
+    textBn: 'পবিত্রতা ঈমানের অর্ধেক, আর "আলহামদুলিল্লাহ" (সকল প্রশংসা আল্লাহর) মীযানের পাল্লাকে পূর্ণ করে দেয়।',
+    narratorBn: 'আবু মালিক আশআরি (রা.)',
+  },
+  {
+    id: 'bukhari-2',
+    book: 'সহিহ বুখারি',
+    category: 'চরিত্র ও আখলাক',
+    hadithNumber: 'হাদিস: ১০',
+    arabic: 'الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ',
+    textBn: 'প্রকৃত মুসলিম সেই ব্যক্তি, যার জিহ্বা ও হাত থেকে অন্য মুসলিমগণ নিরাপদ থাকে।',
+    narratorBn: 'আবদুল্লাহ ইবনে আমর (রা.)',
+  },
+  {
+    id: 'bukhari-3',
+    book: 'সহিহ বুখারি',
+    category: 'দোয়া ও যিকির',
+    hadithNumber: 'হাদিস: ৬৪০৬',
+    arabic: 'كَلِمَتَانِ خَفِيفَتَانِ عَلَى اللِّسَانِ، ثَقِيلَتَانِ فِي الْمِيزَانِ، حَبِيبَتَانِ إِلَى الرَّحْمَنِ: سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، سُبْحَانَ اللَّهِ الْعَظِيمِ',
+    textBn: 'দুটি বাক্য উচ্চারণে খুব সহজ, মীযানের পাল্লায় অতি ভারী এবং পরম করুণাময় আল্লাহর কাছে অত্যন্ত প্রিয়: "সুবহানাল্লাহি ওয়া বিহামদিহি, সুবহানাল্লাহিল আযীম।"',
+    narratorBn: 'আবু হুরায়রা (রা.)',
+  },
+  {
+    id: 'muslim-2',
+    book: 'সহিহ মুসলিম',
+    category: 'দান ও রোজা',
+    hadithNumber: 'হাদিস: ২৫৮৮',
+    arabic: 'مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ',
+    textBn: 'দান-সাদাকাহ কখনো সম্পদ কমায় না; এবং ক্ষমা করার দ্বারা আল্লাহ বান্দার মর্যাদা বাড়িয়ে দেন।',
+    narratorBn: 'আবু হুরায়রা (রা.)',
+  },
+  {
+    id: 'bukhari-4',
+    book: 'সহিহ বুখারি',
+    category: 'দান ও রোজা',
+    hadithNumber: 'হাদিস: ১৮৯৪',
+    arabic: 'الصِّيَامُ جُنَّةٌ',
+    textBn: 'রোজা হলো ঢালস্বরূপ। সুতরাং তোমাদের কেউ যেন রোজা অবস্থায় অশ্লীল কথা না বলে এবং মূর্খতাসুলভ আচরণ না করে।',
+    narratorBn: 'আবু হুরায়রা (রা.)',
+  },
+  {
+    id: 'muslim-3',
+    book: 'সহিহ মুসলিম',
+    category: 'চরিত্র ও আখলাক',
+    hadithNumber: 'হাদিস: ২৫৬৪',
+    arabic: 'إِنَّ اللَّهَ لَا يَنْظُرُ إِلَى صُوَرِكُمْ وَأَمْوَالِكُمْ وَلَكِنْ يَنْظُرُ إِلَى قُلُوبِكُمْ وَأَعْمَالِكُمْ',
+    textBn: 'নিশ্চয়ই আল্লাহ তোমাদের বাহ্যিক আকৃতি ও ধন-সম্পদের দিকে তাকান না; বরং তিনি তোমাদের অন্তর এবং আমলের দিকে তাকান।',
+    narratorBn: 'আবু হুরায়রা (রা.)',
+  },
+  {
+    id: 'bukhari-5',
+    book: 'সহিহ বুখারি',
+    category: 'নামাজ ও পবিত্রতা',
+    hadithNumber: 'হাদিস: ৫২৮',
+    arabic: 'الصَّلَوَاتُ الْخَمْسُ وَالْجُمُعَةُ إِلَى الْجُمُعَةِ كَفَّارَةٌ لِمَا بَيْنَهُنَّ',
+    textBn: 'পাঁচ ওয়াক্ত নামাজ এবং এক জুমা থেকে অপর জুমা—এগুলোর মধ্যবর্তী সময়ের (সগীরা) গুনাহসমূহের কাফফারা হয়ে যায়, যদি কবিরা গুনাহ থেকে বেঁচে থাকা হয়।',
+    narratorBn: 'আবু হুরায়রা (রা.)',
+  },
+  {
+    id: 'muslim-4',
+    book: 'সহিহ মুসলিম',
+    category: 'দোয়া ও যিকির',
+    hadithNumber: 'হাদিস: ২৭৩৪',
+    arabic: 'أَقْرَبُ مَا يَكُونُ الْعَبْدُ مِنْ رَبِّهِ وَهُوَ سَاجِدٌ، فَأَكْثِرُوا الدُّعَاءَ',
+    textBn: 'বান্দা তার রবের সবচেয়ে নিকটবর্তী হয় যখন সে সিজদায় থাকে। অতএব, সিজদায় তোমরা বেশি বেশি দোয়া করো।',
+    narratorBn: 'আবু হুরায়রা (রা.)',
+  },
+  {
+    id: 'bukhari-6',
+    book: 'সহিহ বুখারি',
+    category: 'ঈমান ও নিয়ত',
+    hadithNumber: 'হাদিস: ৫০২৭',
+    arabic: 'خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ',
+    textBn: 'তোমাদের মধ্যে সর্বোত্তম সেই ব্যক্তি, যে নিজে কোরআন শেখে এবং অন্যকে তা শিক্ষা দেয়।',
+    narratorBn: 'উসমান ইবনে আফফান (রা.)',
+  },
+];

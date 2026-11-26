@@ -1,0 +1,243 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Connection validation probe (read-only)
+    match /test/connection {
+      allow get: if true;
+    }
+
+    // Reusable Primitives
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedUser() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isVerifiedOwner(userId) {
+      return isVerifiedUser() && request.auth.uid == userId;
+    }
+
+    function isValidDateKey(dateKey) {
+      return dateKey is string && dateKey.size() == 10 && dateKey.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$');
+    }
+
+    // Entity Validators
+    function isValidUserProfile(data, userId) {
+      return data.keys().hasAll(['uid', 'displayName', 'email', 'district', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['uid', 'displayName', 'email', 'district', 'createdAt', 'updatedAt'])
+        && data.uid is string && data.uid == userId && data.uid.size() <= 128
+        && data.displayName is string && data.displayName.size() >= 1 && data.displayName.size() <= 80
+        && data.email is string && data.email.size() >= 3 && data.email.size() <= 160
+        && data.district is string && data.district.size() >= 1 && data.district.size() <= 60
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidBookmark(data, userId) {
+      return data.keys().hasAll(['uid', 'surahNumber', 'ayahNumber', 'surahNameBn', 'translationBn', 'createdAt'])
+        && data.keys().hasOnly(['uid', 'surahNumber', 'ayahNumber', 'surahNameBn', 'translationBn', 'createdAt'])
+        && data.uid is string && data.uid == userId && data.uid.size() <= 128
+        && data.surahNumber is int && data.surahNumber >= 1 && data.surahNumber <= 114
+        && data.ayahNumber is int && data.ayahNumber >= 1 && data.ayahNumber <= 286
+        && data.surahNameBn is string && data.surahNameBn.size() >= 1 && data.surahNameBn.size() <= 100
+        && data.translationBn is string && data.translationBn.size() >= 1 && data.translationBn.size() <= 2000
+        && data.createdAt is timestamp;
+    }
+
+    function isValidLastRead(data, userId) {
+      return data.keys().hasAll(['uid', 'surahNumber', 'ayahNumber', 'surahNameBn', 'updatedAt'])
+        && data.keys().hasOnly(['uid', 'surahNumber', 'ayahNumber', 'surahNameBn', 'updatedAt'])
+        && data.uid is string && data.uid == userId && data.uid.size() <= 128
+        && data.surahNumber is int && data.surahNumber >= 1 && data.surahNumber <= 114
+        && data.ayahNumber is int && data.ayahNumber >= 1 && data.ayahNumber <= 286
+        && data.surahNameBn is string && data.surahNameBn.size() >= 1 && data.surahNameBn.size() <= 100
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidAmalLog(data, userId, dateKey) {
+      return data.keys().hasAll(['uid', 'date', 'fajr', 'dhuhr', 'asr', 'maghrib', 'isha', 'quran', 'dhikr', 'sadaqah', 'fasting', 'sunnah', 'updatedAt'])
+        && data.keys().hasOnly(['uid', 'date', 'fajr', 'dhuhr', 'asr', 'maghrib', 'isha', 'quran', 'dhikr', 'sadaqah', 'fasting', 'sunnah', 'updatedAt'])
+        && data.uid is string && data.uid == userId && data.uid.size() <= 128
+        && isValidDateKey(data.date) && data.date == dateKey
+        && data.fajr is bool && data.dhuhr is bool && data.asr is bool && data.maghrib is bool && data.isha is bool
+        && data.quran is bool && data.dhikr is bool && data.sadaqah is bool && data.fasting is bool && data.sunnah is bool
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidQazaTracker(data, userId) {
+      return data.keys().hasAll(['uid', 'fajr', 'dhuhr', 'asr', 'maghrib', 'isha', 'fasting', 'updatedAt'])
+        && data.keys().hasOnly(['uid', 'fajr', 'dhuhr', 'asr', 'maghrib', 'isha', 'fasting', 'updatedAt'])
+        && data.uid is string && data.uid == userId && data.uid.size() <= 128
+        && data.fajr is int && data.fajr >= 0 && data.fajr <= 50000
+        && data.dhuhr is int && data.dhuhr >= 0 && data.dhuhr <= 50000
+        && data.asr is int && data.asr >= 0 && data.asr <= 50000
+        && data.maghrib is int && data.maghrib >= 0 && data.maghrib <= 50000
+        && data.isha is int && data.isha >= 0 && data.isha <= 50000
+        && data.fasting is int && data.fasting >= 0 && data.fasting <= 10000
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidLeaderboardEntry(data) {
+      return data.keys().hasAll(['uid', 'displayName', 'score', 'dateKey', 'totalCompleted', 'updatedAt'])
+        && data.keys().hasOnly(['uid', 'displayName', 'score', 'dateKey', 'totalCompleted', 'updatedAt'])
+        && data.uid is string && data.uid == request.auth.uid && data.uid.size() <= 128
+        && data.displayName is string && data.displayName.size() >= 1 && data.displayName.size() <= 80
+        && data.score is int && data.score >= 0 && data.score <= 100
+        && isValidDateKey(data.dateKey)
+        && data.totalCompleted is int && data.totalCompleted >= 1 && data.totalCompleted <= 500
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidForumQuestion(data) {
+      return data.keys().hasAll(['authorUid', 'authorName', 'category', 'title', 'body', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['authorUid', 'authorName', 'category', 'title', 'body', 'createdAt', 'updatedAt'])
+        && data.authorUid is string && data.authorUid.size() >= 1 && data.authorUid.size() <= 128
+        && data.authorName is string && data.authorName.size() >= 1 && data.authorName.size() <= 80
+        && data.category is string && data.category.size() >= 1 && data.category.size() <= 40
+        && data.title is string && data.title.size() >= 3 && data.title.size() <= 160
+        && data.body is string && data.body.size() >= 5 && data.body.size() <= 2000
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidForumAnswer(data, questionId) {
+      return data.keys().hasAll(['questionId', 'authorUid', 'authorName', 'body', 'createdAt'])
+        && data.keys().hasOnly(['questionId', 'authorUid', 'authorName', 'body', 'createdAt'])
+        && data.questionId is string && data.questionId == questionId
+        && data.authorUid is string && data.authorUid == request.auth.uid && data.authorUid.size() <= 128
+        && data.authorName is string && data.authorName.size() >= 1 && data.authorName.size() <= 80
+        && data.body is string && data.body.size() >= 2 && data.body.size() <= 1500
+        && data.createdAt is timestamp;
+    }
+
+    // Users & Private Subcollections (Strict PII Isolation)
+    match /users/{userId} {
+      allow get: if isValidId(userId) && isOwner(userId);
+      allow create: if isValidId(userId) && isVerifiedOwner(userId)
+        && isValidUserProfile(incoming(), userId)
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+      allow update: if isValidId(userId) && isVerifiedOwner(userId)
+        && isValidUserProfile(incoming(), userId)
+        && incoming().uid == existing().uid
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'district', 'updatedAt']);
+
+      match /bookmarks/{bookmarkId} {
+        allow get: if isValidId(userId) && isValidId(bookmarkId) && isOwner(userId);
+        allow list: if isValidId(userId) && isOwner(userId) && resource.data.uid == request.auth.uid;
+        allow create: if isValidId(userId) && isValidId(bookmarkId) && isVerifiedOwner(userId)
+          && isValidBookmark(incoming(), userId)
+          && incoming().createdAt == request.time;
+        allow delete: if isValidId(userId) && isValidId(bookmarkId) && isVerifiedOwner(userId);
+      }
+
+      match /last_read/{docId} {
+        allow get: if isValidId(userId) && isValidId(docId) && isOwner(userId);
+        allow create: if isValidId(userId) && isValidId(docId) && isVerifiedOwner(userId)
+          && isValidLastRead(incoming(), userId)
+          && incoming().updatedAt == request.time;
+        allow update: if isValidId(userId) && isValidId(docId) && isVerifiedOwner(userId)
+          && isValidLastRead(incoming(), userId)
+          && incoming().uid == existing().uid
+          && incoming().updatedAt == request.time
+          && incoming().diff(existing()).affectedKeys().hasOnly(['surahNumber', 'ayahNumber', 'surahNameBn', 'updatedAt']);
+      }
+
+      match /amal_logs/{dateKey} {
+        allow get: if isValidId(userId) && isValidDateKey(dateKey) && isOwner(userId);
+        allow list: if isValidId(userId) && isOwner(userId) && resource.data.uid == request.auth.uid;
+        allow create: if isValidId(userId) && isValidDateKey(dateKey) && isVerifiedOwner(userId)
+          && isValidAmalLog(incoming(), userId, dateKey)
+          && incoming().updatedAt == request.time;
+        allow update: if isValidId(userId) && isValidDateKey(dateKey) && isVerifiedOwner(userId)
+          && isValidAmalLog(incoming(), userId, dateKey)
+          && incoming().uid == existing().uid
+          && incoming().date == existing().date
+          && incoming().updatedAt == request.time
+          && incoming().diff(existing()).affectedKeys().hasOnly(['fajr', 'dhuhr', 'asr', 'maghrib', 'isha', 'quran', 'dhikr', 'sadaqah', 'fasting', 'sunnah', 'updatedAt']);
+      }
+
+      match /qaza_tracker/{docId} {
+        allow get: if isValidId(userId) && isValidId(docId) && isOwner(userId);
+        allow create: if isValidId(userId) && isValidId(docId) && isVerifiedOwner(userId)
+          && isValidQazaTracker(incoming(), userId)
+          && incoming().updatedAt == request.time;
+        allow update: if isValidId(userId) && isValidId(docId) && isVerifiedOwner(userId)
+          && isValidQazaTracker(incoming(), userId)
+          && incoming().uid == existing().uid
+          && incoming().updatedAt == request.time
+          && incoming().diff(existing()).affectedKeys().hasOnly(['fajr', 'dhuhr', 'asr', 'maghrib', 'isha', 'fasting', 'updatedAt']);
+      }
+    }
+
+    // Public Non-PII Quiz Leaderboard
+    match /quiz_leaderboard/{entryId} {
+      allow get: if isValidId(entryId);
+      allow list: if resource.data.score >= 0;
+      allow create: if isValidId(entryId) && isVerifiedUser()
+        && isValidLeaderboardEntry(incoming())
+        && incoming().updatedAt == request.time;
+      allow update: if isValidId(entryId) && isVerifiedUser()
+        && isValidLeaderboardEntry(incoming())
+        && existing().uid == request.auth.uid
+        && incoming().uid == existing().uid
+        && incoming().dateKey == existing().dateKey
+        && incoming().updatedAt == request.time
+        && incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'score', 'totalCompleted', 'updatedAt']);
+    }
+
+    // Community Forum Questions & Answers
+    match /forum_questions/{questionId} {
+      allow get: if isValidId(questionId);
+      allow list: if resource.data.title is string;
+      allow create: if isValidId(questionId) && isVerifiedUser()
+        && isValidForumQuestion(incoming())
+        && incoming().authorUid == request.auth.uid
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+      allow update: if isValidId(questionId) && isVerifiedUser()
+        && isValidForumQuestion(incoming())
+        && existing().authorUid == request.auth.uid
+        && incoming().authorUid == existing().authorUid
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && incoming().diff(existing()).affectedKeys().hasOnly(['category', 'title', 'body', 'updatedAt']);
+      allow delete: if isValidId(questionId) && isVerifiedUser() && existing().authorUid == request.auth.uid;
+
+      match /answers/{answerId} {
+        allow get: if isValidId(questionId) && isValidId(answerId);
+        allow list: if isValidId(questionId) && resource.data.questionId == questionId;
+        allow create: if isValidId(questionId) && isValidId(answerId) && isVerifiedUser()
+          && exists(/databases/$(database)/documents/forum_questions/$(questionId))
+          && isValidForumAnswer(incoming(), questionId)
+          && incoming().createdAt == request.time;
+        allow delete: if isValidId(questionId) && isValidId(answerId) && isVerifiedUser() && existing().authorUid == request.auth.uid;
+      }
+    }
+  }
+}

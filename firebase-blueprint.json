@@ -1,0 +1,158 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Private user profile and preferences for Deen-e-Jibon.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "displayName": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "email": { "type": "string", "format": "email", "maxLength": 160 },
+        "district": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "displayName", "email", "district", "createdAt", "updatedAt"]
+    },
+    "QuranBookmark": {
+      "title": "QuranBookmark",
+      "description": "Saved Quran ayah bookmark for a user.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "surahNumber": { "type": "integer" },
+        "ayahNumber": { "type": "integer" },
+        "surahNameBn": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "translationBn": { "type": "string", "minLength": 1, "maxLength": 2000 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "surahNumber", "ayahNumber", "surahNameBn", "translationBn", "createdAt"]
+    },
+    "LastRead": {
+      "title": "LastRead",
+      "description": "Last read Surah and Ayah position for a user.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "surahNumber": { "type": "integer" },
+        "ayahNumber": { "type": "integer" },
+        "surahNameBn": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "surahNumber", "ayahNumber", "surahNameBn", "updatedAt"]
+    },
+    "AmalLog": {
+      "title": "AmalLog",
+      "description": "Daily worship and Sunnah habit checklist log.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$", "maxLength": 10 },
+        "fajr": { "type": "boolean" },
+        "dhuhr": { "type": "boolean" },
+        "asr": { "type": "boolean" },
+        "maghrib": { "type": "boolean" },
+        "isha": { "type": "boolean" },
+        "quran": { "type": "boolean" },
+        "dhikr": { "type": "boolean" },
+        "sadaqah": { "type": "boolean" },
+        "fasting": { "type": "boolean" },
+        "sunnah": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "date", "fajr", "dhuhr", "asr", "maghrib", "isha", "quran", "dhikr", "sadaqah", "fasting", "sunnah", "updatedAt"]
+    },
+    "QazaTracker": {
+      "title": "QazaTracker",
+      "description": "Missed prayer and fasting repayment counts for a user.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "fajr": { "type": "integer" },
+        "dhuhr": { "type": "integer" },
+        "asr": { "type": "integer" },
+        "maghrib": { "type": "integer" },
+        "isha": { "type": "integer" },
+        "fasting": { "type": "integer" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "fajr", "dhuhr", "asr", "maghrib", "isha", "fasting", "updatedAt"]
+    },
+    "QuizLeaderboardEntry": {
+      "title": "QuizLeaderboardEntry",
+      "description": "Public non-PII daily quiz leaderboard entry.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "displayName": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "score": { "type": "integer" },
+        "dateKey": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$", "maxLength": 10 },
+        "totalCompleted": { "type": "integer" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "displayName", "score", "dateKey", "totalCompleted", "updatedAt"]
+    },
+    "ForumQuestion": {
+      "title": "ForumQuestion",
+      "description": "Community Islamic discussion question.",
+      "type": "object",
+      "properties": {
+        "authorUid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "authorName": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "category": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "title": { "type": "string", "minLength": 3, "maxLength": 160 },
+        "body": { "type": "string", "minLength": 5, "maxLength": 2000 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["authorUid", "authorName", "category", "title", "body", "createdAt", "updatedAt"]
+    },
+    "ForumAnswer": {
+      "title": "ForumAnswer",
+      "description": "Community reply to a forum question.",
+      "type": "object",
+      "properties": {
+        "questionId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "authorUid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "authorName": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "body": { "type": "string", "minLength": 2, "maxLength": 1500 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["questionId", "authorUid", "authorName", "body", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Private user profile containing email and selected district."
+    },
+    "/users/{userId}/bookmarks/{bookmarkId}": {
+      "schema": { "$ref": "#/entities/QuranBookmark" },
+      "description": "User-owned Quran ayah bookmarks."
+    },
+    "/users/{userId}/last_read/{docId}": {
+      "schema": { "$ref": "#/entities/LastRead" },
+      "description": "User-owned last read Quran position."
+    },
+    "/users/{userId}/amal_logs/{dateKey}": {
+      "schema": { "$ref": "#/entities/AmalLog" },
+      "description": "User-owned daily Amal tracker checklist."
+    },
+    "/users/{userId}/qaza_tracker/{docId}": {
+      "schema": { "$ref": "#/entities/QazaTracker" },
+      "description": "User-owned Qaza namaz and fasting counts."
+    },
+    "/quiz_leaderboard/{entryId}": {
+      "schema": { "$ref": "#/entities/QuizLeaderboardEntry" },
+      "description": "Public non-PII daily quiz scores for leaderboard."
+    },
+    "/forum_questions/{questionId}": {
+      "schema": { "$ref": "#/entities/ForumQuestion" },
+      "description": "Community Islamic questions."
+    },
+    "/forum_questions/{questionId}/answers/{answerId}": {
+      "schema": { "$ref": "#/entities/ForumAnswer" },
+      "description": "Community answers attached to a question."
+    }
+  }
+}

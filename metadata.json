@@ -1,0 +1,6 @@
+{
+  "name": "দীন-ই-জীবন (Deen-e-Jibon)",
+  "description": "সম্পূর্ণ বাংলা ইসলামিক ওয়েব অ্যাপ ও PWA — নামাজের সময়, আল-কোরআন, রমজান ক্যালেন্ডার, দোয়া ও তাসবিহ, যাকাত ও উত্তরাধিকার ক্যালকুলেটর, কুইজ এবং আমল ট্র্যাকার।",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

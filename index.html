@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <script>
+      window.addEventListener(
+        'error',
+        function (e) {
+          if (e && typeof e.filename === 'string' && /^(chrome|moz|safari)-extension:\/\//.test(e.filename)) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+          }
+        },
+        true
+      );
+      window.addEventListener(
+        'unhandledrejection',
+        function (e) {
+          var msg = e && e.reason && (e.reason.stack || e.reason.message || String(e.reason));
+          if (typeof msg === 'string' && /(chrome|moz|safari)-extension:\/\//.test(msg)) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+          }
+        },
+        true
+      );
+    </script>
+    <title>দীন-ই-জীবন (Deen-e-Jibon) — সম্পূর্ণ বাংলা ইসলামিক অ্যাপ</title>
+    <meta
+      name="description"
+      content="নামাজের সময়সূচি, আল-কোরআন তিলাওয়াত ও তাফসির, রমজান ও হিজরি ক্যালেন্ডার, দোয়া-হাদিস, তাসবিহ, যাকাত-ফিতরা-উত্তরাধিকার ক্যালকুলেটর, কুইজ ও আমল ট্র্যাকার।"
+    />
+    <meta property="og:title" content="দীন-ই-জীবন (Deen-e-Jibon) — সম্পূর্ণ বাংলা ইসলামিক অ্যাপ" />
+    <meta
+      property="og:description"
+      content="বাংলাদেশের ৬৪ জেলার নামাজের সময়, আল-কোরআন অডিও ও বাংলা অনুবাদ, রমজান ক্যালেন্ডার, যাকাত ক্যালকুলেটর এবং দৈনিক আমল ট্র্যাকার।"
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#047857" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="দীন-ই-জীবন" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Hind+Siliguri:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-[#FAF8F5] text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased selection:bg-emerald-600 selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
